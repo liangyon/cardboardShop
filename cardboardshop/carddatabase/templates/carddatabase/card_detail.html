@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+  <h1>{{ card.name }}</h1>
+<!--  <img src="{{ card.card_images.all.0.image_url }}" alt="{{ card.name }}" width="300">-->
+
+  <h2>Card Details</h2>
+  <ul>
+    <li>Type: {{ card.type }}</li>
+    <li>Attribute: {{ card.attribute }}</li>
+    <li>Level/Rank: {{ card.level }}</li>
+    <li>Link Rating: {{ card.linkval }}</li>
+    <li>Link Markers: {{ card.linkmarkers }}</li>
+    <li>Race: {{ card.race }}</li>
+    <li>Archetype: {{ card.archetype }}</li>
+    <li>Attack: {{ card.attack }}</li>
+    <li>Defense: {{ card.defense }}</li>
+  </ul>
+
+  <h2>Card Sets</h2>
+  <ul>
+    {% for card_set in card.card_sets.all %}
+      <li>{{ card_set.set_name }} ({{ card_set.set_rarity }}) - {{ card_set.set_code }}</li>
+    {% empty %}
+      <li>No card sets available</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Card Prices</h2>
+  <ul>
+    {% for card_price in card.card_prices.all %}
+      <li>Cardmarket Price: {{ card_price.cardmarket_price }}</li>
+      <li>TCGPlayer Price: {{ card_price.tcgplayer_price }}</li>
+      <li>eBay Price: {{ card_price.ebay_price }}</li>
+      <li>Amazon Price: {{ card_price.amazon_price }}</li>
+      <li>CoolStuffInc Price: {{ card_price.coolstuffinc_price }}</li>
+    {% empty %}
+      <li>No card prices available</li>
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
