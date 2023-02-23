@@ -12,6 +12,7 @@
 
   <h2>Card Details</h2>
   <ul>
+    <li>Last updated: {{ card.updated_date}}</li>
     <li>Type: {{ card.type }}</li>
     <li>Attribute: {{ card.attribute }}</li>
     <li>Level/Rank: {{ card.level }}</li>
@@ -25,7 +26,7 @@
 
   <h2>Card Sets</h2>
   <ul>
-    {% for card_set in card.card_sets.all %}
+    {% for card_set in card.card_sets %}
       <li>{{ card_set.set_name }} ({{ card_set.set_rarity }}) - {{ card_set.set_code }}</li>
     {% empty %}
       <li>No card sets available</li>
@@ -34,7 +35,7 @@
 
   <h2>Card Prices</h2>
   <ul>
-    {% for card_price in card.card_prices.all %}
+    {% for card_price in card.card_prices %}
       <li>Cardmarket Price: {{ card_price.cardmarket_price }}</li>
       <li>TCGPlayer Price: {{ card_price.tcgplayer_price }}</li>
       <li>eBay Price: {{ card_price.ebay_price }}</li>

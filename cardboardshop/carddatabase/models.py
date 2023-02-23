@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -29,4 +29,5 @@ class CardInfo(models.Model):
     card_sets = models.JSONField(null=True, blank=True)
     card_images = models.JSONField(null=True, blank=True)
     card_prices = models.JSONField(null=True, blank=True)
+    updated_date = models.DateTimeField(default=timezone.datetime(1995, 1, 1))
 
