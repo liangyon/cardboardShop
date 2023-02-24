@@ -41,10 +41,42 @@
       <li>eBay Price: {{ card_price.ebay_price }}</li>
       <li>Amazon Price: {{ card_price.amazon_price }}</li>
       <li>CoolStuffInc Price: {{ card_price.coolstuffinc_price }}</li>
+      <li>401games Prices: {{ card_price.401_games }}</li>
     {% empty %}
       <li>No card prices available</li>
     {% endfor %}
   </ul>
+
+
+  {% block content %}
+      <p>Last updated: {{ card.updated_date }}</p>
+      <button id="update-btn" data-card-id="{{ card.id }}">Update Information</button>
+  {% endblock %}
+
+  {% block javascript %}
+      <script>
+          var updateBtn = document.getElementById('update-btn');
+          updateBtn.addEventListener('click', function() {
+              var cardId = this.getAttribute('data-card-id');
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', '{% url "update_records" %}', true);
+              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+              xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+              xhr.onload = function() {
+                  if (xhr.readyState === xhr.DONE) {
+                      if (xhr.status === 200) {
+                          var message = JSON.parse(xhr.responseText)['message'];
+                          alert(message);
+                          window.location.reload(true);
+                      }
+                  }
+              };
+              xhr.send('card_id=' + cardId);
+          });
+      </script>
+  {% endblock %}
+
+
 
 </body>
 </html>
