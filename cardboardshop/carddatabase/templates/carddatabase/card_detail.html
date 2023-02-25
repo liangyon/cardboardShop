@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
 
+{% extends "base.html" %}
+
+{% block base %}
   <h1>{{ card.name }}</h1>
-<!--  <img src="{{ card.card_images.all.0.image_url }}" alt="{{ card.name }}" width="300">-->
+  <!--  <img src="{{ card.card_images.all.0.image_url }}" alt="{{ card.name }}" width="300">-->
 
   <h2>Card Details</h2>
   <ul>
@@ -75,7 +71,4 @@
       </script>
   {% endblock %}
 
-
-
-</body>
-</html>
+{% endblock base %}
