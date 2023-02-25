@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import CardInfo
 from .shop_scrapers.shop_401_games import card_prices_401_helper
+from .shop_scrapers.shop_ac_games import card_prices_ac_helper
 
 
 def index(request):
@@ -25,6 +26,7 @@ def update_records(request):
         card = CardInfo.objects.get(id=card_id)
         card.updated_date = date.today()
         card.card_prices[0]['401_games'] = card_prices_401_helper(card.name, card.card_sets)
+        card.card_prices[0]['AC_games'] = card_prices_ac_helper(card.name)
         card.save()
         data = {'message': 'Last updated date has been updated.'}
         return JsonResponse(data)
