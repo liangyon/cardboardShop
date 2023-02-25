@@ -9,9 +9,12 @@ def card_prices_401_helper(card_name, card_sets, card_edition=None):
     set_informations = []
     for sets in card_sets:
         set_informations.append(sets['set_code'].replace(' ', '-') + ' ' + sets['set_rarity'].replace(' ', '-'))
-        urls.append("https://store.401games.ca/products/" + card_name.replace(' ', '-').replace(':', '')
-                    + "-" + sets['set_code'].replace(' ', '-') + "-" + sets['set_rarity'].replace(' ',
-                                                                                                  '-') + "-" + "1st-edition")
+        urls.append(("https://store.401games.ca/products/"
+                     + (card_name.replace(' ', '-').replace(':', '').replace('.', '-').replace('!', '').replace('?', '')
+                        .replace('\'', '').replace('\"', '')
+                        .replace(',', '').replace('@', '').replace('/', '-')).replace('---', '-').replace('--', '-')
+                     + "-" + sets['set_code'].replace(' ', '-')
+                     + "-" + sets['set_rarity'].replace(' ', '-') + "-" + "1st-edition").replace('--', ''))
 
     print(urls)
 
