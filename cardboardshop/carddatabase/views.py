@@ -1,4 +1,5 @@
 from datetime import date
+import datetime
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -24,9 +25,17 @@ def update_records(request):
     if request.method == 'POST':
         card_id = request.POST.get('card_id')
         card = CardInfo.objects.get(id=card_id)
-        card.updated_date = date.today()
-        card.card_prices[0]['401_games'] = card_prices_401_helper(card.name, card.card_sets)
-        card.card_prices[0]['AC_games'] = card_prices_ac_helper(card.name)
-        card.save()
-        data = {'message': 'Last updated date has been updated.'}
-        return JsonResponse(data)
+        if card.updated_date.date() != datetime.datetime.today().date():
+            card.updated_date = date.today()
+
+
+            card.card_prices[0]['401_games'] = card_prices_401_helper(card.name, card.card_sets)
+            card.card_prices[0]['AC_games'] = card_prices_ac_helper(card.name)
+
+
+            card.save()
+            data = {'message': 'Last updated date has been updated.'}
+            return JsonResponse(data, status=200)
+        else:
+            data = {'message': 'Already updated today!!.'}
+            return JsonResponse(data, status=200)

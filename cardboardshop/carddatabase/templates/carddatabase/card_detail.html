@@ -4,7 +4,7 @@
 
 {% block base %}
   <h1>{{ card.name }}</h1>
-  <!--  <img src="{{ card.card_images.all.0.image_url }}" alt="{{ card.name }}" width="300">-->
+  <img src="{{ card.card_images.all.0.image_url }}" alt="{{ card.name }}" width="300">
 
   <h2>Card Details</h2>
   <ul>
@@ -18,6 +18,7 @@
     <li>Archetype: {{ card.archetype }}</li>
     <li>Attack: {{ card.attack }}</li>
     <li>Defense: {{ card.defense }}</li>
+    <li>Images:  {{card.card_images.all.0.image_url}}</li>
   </ul>
 
   <h2>Card Sets</h2>
