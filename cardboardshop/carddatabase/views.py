@@ -11,7 +11,7 @@ from .shop_scrapers.shop_ac_games import card_prices_ac_helper
 
 def index(request):
     # Get a set of 5 random cards
-    random_cards = CardInfo.objects.order_by('?')[:25]
+    random_cards = CardInfo.objects.order_by('?')[:5]
     context = {'random_cards': random_cards}
     return render(request, 'carddatabase/home.html', context)
 

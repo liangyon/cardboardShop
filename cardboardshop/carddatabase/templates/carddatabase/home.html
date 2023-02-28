@@ -1,11 +1,29 @@
 {% extends "base.html" %}
-
 {% block base %}
 
 
+    <h1>Search for a card</h1>
+    <div class="container">
 
-{% for card in random_cards %}
-    <a href="{% url 'card_detail' card.id %}">{{ card.name }}</a><br>
-{% endfor %}
+        <div class="row height d-flex justify-content-center align-items-center">
+
+            <div class="col-md-6">
+
+                <div class="form">
+                  <i class="fa fa-search"></i>
+                  <input type="text" class="form-control form-input" placeholder="Search anything...">
+                  <span class="left-pan"><i class="fa fa-microphone"></i></span>
+                </div>
+                {% for card in random_cards %}
+<!--                  <a href="#cardModal" data-card-id="{{ card.id }}"  data-card-name="{{ card.name }}" data-bs-toggle="modal" data-target="#cardModal">{{ card.name }}</a><br>-->
+                  <a href="{% url 'card_detail' card.id %}" >{{ card.name }}</a><br>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
 
 {% endblock base %}
