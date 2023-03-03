@@ -2,23 +2,40 @@
 {% block base %}
 
 
-    <h1>Search for a card</h1>
     <div class="container">
 
         <div class="row height d-flex justify-content-center align-items-center">
 
             <div class="col-md-6">
 
-                <div class="form">
-                  <i class="fa fa-search"></i>
-                  <input type="text" class="form-control form-input" placeholder="Search anything...">
-                  <span class="left-pan"><i class="fa fa-microphone"></i></span>
-                </div>
-                {% for card in random_cards %}
-<!--                  <a href="#cardModal" data-card-id="{{ card.id }}"  data-card-name="{{ card.name }}" data-bs-toggle="modal" data-target="#cardModal">{{ card.name }}</a><br>-->
-                  <a href="{% url 'card_detail' card.id %}" >{{ card.name }}</a><br>
+                <div class="form" >
+                <i class="fa fa-search"></i>
+                    <input id="card_searchbar" type="search"  list="cards" class="form-control form-input" placeholder="Search anything...">
+                    <a id="myBtn" hidden href='#'>a</a>
+                    <datalist id="cards">
+                        {% for card in cards%}
+                          <option value="{{ card.name }} " >
+                        {% endfor %}
+                    </datalist>
+                <script>
+                    var input = document.getElementById("card_searchbar");
+                    var link = document.getElementById("myBtn");
+                    input.addEventListener("keypress", function(event) {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        let sanitized = input.value.toLowerCase();
 
-                {% endfor %}
+                        // Replace spaces and symbols with underscores
+                        sanitized = sanitized.replace(/[\s~`!@#$%^&*()\-_+={[}\]|\\:;"'<,>.?/]/g, '_')
+                        .replace(/^_+|_+$/g, '').replace(/_{2,}/g, "_");
+
+                        link.href = '/carddatabase/card/' + sanitized;
+                        document.getElementById("myBtn").click();
+                      }
+                    });
+                </script>
+
+                </div>
 
             </div>
 

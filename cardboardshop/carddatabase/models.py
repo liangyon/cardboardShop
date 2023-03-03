@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+import re
 import datetime
 
 class Question(models.Model):
@@ -31,4 +31,8 @@ class CardInfo(models.Model):
     card_images = models.JSONField(null=True, blank=True)
     card_prices = models.JSONField(null=True, blank=True)
     updated_date = models.DateTimeField(default=datetime.date(1955, 12, 25))
+    sanitized_name = models.CharField(max_length=100, blank=True)
 
+    def save(self, *args, **kwargs):
+        self.sanitized_name = re.sub(r'\W+', '_', self.name.lower().strip()).strip('_')
+        super().save(*args, **kwargs)
