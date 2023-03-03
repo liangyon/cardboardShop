@@ -58,7 +58,7 @@
   </div>
 
 
-  {% block content %}
+    {% block content %}
       <p>Last updated: {{ card.updated_date }}</p>
       <button id="update-btn" data-card-id="{{ card.id }}">Update Information</button>
   {% endblock %}
@@ -66,7 +66,7 @@
   {% block javascript %}
       <script>
           var updateBtn = document.getElementById('update-btn');
-          window.addEventListener('click', function() {
+          updateBtn.addEventListener('click', function() {
               var cardId = this.getAttribute('data-card-id');
               var xhr = new XMLHttpRequest();
               xhr.open('POST', '{% url "update_records" %}', true);
