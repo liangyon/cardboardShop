@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 
 import carddatabase.models
 
+
 # this is messed up
 class Command(BaseCommand):
     help = 'Sanitize card names'
