@@ -8,39 +8,39 @@
 
 
   <div class="row">
-    <div class="col">
+    <div class="col-sm-6">
       <img src="{{ card.card_images.0.image_url }}" alt="{{ card.name }}" width="300">
 
     </div>
 
-   <div class="col">
-      <h2>Card Details</h2>
-      <ul style="list-style-type:none;">
-        <li>Last updated: {{ card.updated_date}}</li>
-        <li>Type: {{ card.type }}</li>
-        {% if card.type != 'Trap Card' and card.type != 'Spell Card'%}
+       <div class="col-sm-3">
+          <h2>Card Details</h2>
+          <ul style="list-style-type:none;">
+            <li>Last updated: {{ card.updated_date}}</li>
+            <li>Type: {{ card.type }}</li>
+            {% if card.type != 'Trap Card' and card.type != 'Spell Card'%}
 
-            <li>Attribute: {{ card.attribute }}</li>
-            <li>Level/Rank: {{ card.level }}</li>
-            <li>Link Rating: {{ card.linkval }}</li>
-            <li>Link Markers: {{ card.linkmarkers }}</li>
-            <li>Attack: {{ card.attack }}</li>
-            <li>Defense: {{ card.defense }}</li>
-        {%endif%}
-        <li>Race: {{ card.race }}</li>
-        <li>Archetype: {{ card.archetype }}</li>
-      </ul>
-      <h2>Card Sets</h2>
-      <ul style="list-style-type:none;">
-        {% for card_set in card.card_sets %}
-          <li>{{ card_set.set_name }} ({{ card_set.set_rarity }}) - {{ card_set.set_code }}</li>
-        {% empty %}
-          <li>No card sets available</li>
-        {% endfor %}
-      </ul>
+                <li>Attribute: {{ card.attribute }}</li>
+                <li>Level/Rank: {{ card.level }}</li>
+                <li>Link Rating: {{ card.linkval }}</li>
+                <li>Link Markers: {{ card.linkmarkers }}</li>
+                <li>Attack: {{ card.attack }}</li>
+                <li>Defense: {{ card.defense }}</li>
+            {%endif%}
+            <li>Race: {{ card.race }}</li>
+            <li>Archetype: {{ card.archetype }}</li>
+          </ul>
+          <h2>Card Sets</h2>
+          <ul style="list-style-type:none;">
+            {% for card_set in card.card_sets %}
+              <li>{{ card_set.set_name }} ({{ card_set.set_rarity }}) - {{ card_set.set_code }}</li>
+            {% empty %}
+              <li>No card sets available</li>
+            {% endfor %}
+          </ul>
 
-    </div>
-        <div class="row">
+        </div>
+        <div class="row" id="dynamic-element">
             <h2>Card Prices</h2>
             <ul style="list-style-type:none;">
             {% for card_price in card.card_prices %}
@@ -53,37 +53,15 @@
               <li>No card prices available</li>
             {% endfor %}
             </ul>
-
+            <p>Last updated: {{ card.updated_date }}</p>
         </div>
   </div>
 
 
     {% block content %}
-      <p>Last updated: {{ card.updated_date }}</p>
-      <button id="update-btn" data-card-id="{{ card.id }}">Update Information</button>
-  {% endblock %}
 
-  {% block javascript %}
-      <script>
-          var updateBtn = document.getElementById('update-btn');
-          updateBtn.addEventListener('click', function() {
-              var cardId = this.getAttribute('data-card-id');
-              var xhr = new XMLHttpRequest();
-              xhr.open('POST', '{% url "update_records" %}', true);
-              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-              xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
-              xhr.onload = function() {
-                  if (xhr.readyState === xhr.DONE) {
-                      if (xhr.status === 200) {
-                          var message = JSON.parse(xhr.responseText)['message'];
-                          alert(message);
-                          window.location.reload(true);
-                      }
-                  }
-              };
-              xhr.send('card_id=' + cardId);
-          });
-      </script>
-  {% endblock %}
+    {% endblock %}
+
+
 
 {% endblock base %}

@@ -16,8 +16,6 @@ def card_prices_401_helper(card_name, card_sets, card_edition=None):
                      + "-" + sets['set_code'].replace(' ', '-')
                      + "-" + sets['set_rarity'].replace(' ', '-') + "-" + "1st-edition").replace('--', ''))
 
-    print(urls)
-
     results = []
 
     def worker_data(url, set_information):
@@ -67,5 +65,3 @@ def get_data(url, set_information):
             print('404 error: page not found')
         else:
             print('HTTP error:', e)
-    else:
-        print(response.content)
